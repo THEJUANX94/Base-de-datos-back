@@ -16,7 +16,7 @@ const Productos_1 = require("./Productos");
 let Descuentos_producto = class Descuentos_producto extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Productos_1.Productos, (id_producto) => id_producto.id_producto),
+    (0, typeorm_1.ManyToOne)(() => Productos_1.Productos, (id_productosss) => id_productosss.id_producto),
     (0, typeorm_1.PrimaryColumn)("int"),
     __metadata("design:type", Number)
 ], Descuentos_producto.prototype, "id_producto", void 0);

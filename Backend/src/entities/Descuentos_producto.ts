@@ -5,7 +5,7 @@ import { Productos } from "./Productos";
 @Entity('descuentos_producto')
 export class Descuentos_producto extends BaseEntity{
     
-    @ManyToOne(() => Productos, (id_producto) => id_producto.id_producto)
+    @ManyToOne(() => Productos, (id_productosss) => id_productosss.id_producto)
     @PrimaryColumn("int")
     id_producto: number
 

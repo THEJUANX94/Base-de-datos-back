@@ -3,7 +3,7 @@ import { Tipo_producto } from '../entities/Tipo_producto';
 
 export const createTipoProducto = async (req: Request, res: Response) => {
     try {
-        co { id_tipo, nombre_tipo } = req.body
+        const { id_tipo, nombre_tipo } = req.body
 
         const tipo_producto = new Tipo_producto()
         tipo_producto.id_tipo = id_tipo
