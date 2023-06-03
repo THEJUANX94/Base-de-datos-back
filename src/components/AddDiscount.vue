@@ -40,7 +40,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { DescuentosProducto } from "../interfaces/DescuentosProducto";
-// import { createDiscount } from "../services/DiscountService";
+import { createDiscount } from "../services/DiscountService";
 
 export default defineComponent({
     name: "AddDiscount",
@@ -50,11 +50,8 @@ export default defineComponent({
         }
     },
     methods: {
-        // async save() {
-        //     await createDiscount(this.descuentosProducto);
-        // }
-        save() {
-            console.log(this.descuentosProducto);
+        async save() {
+            await createDiscount(this.descuentosProducto);
         }
     }
 });
