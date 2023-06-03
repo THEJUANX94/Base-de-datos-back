@@ -8,7 +8,9 @@ export const createDescuento_producto = async (req: Request, res: Response) => {
         const descuentos_producto = new Descuentos_producto()
         descuentos_producto.id_producto = id_producto
         descuentos_producto.id_descuento = id_descuento
+        fecha_inicio_descuento.replace('-', '/')
         descuentos_producto.fecha_inicio_descuento = fecha_inicio_descuento
+        fecha_fin_descuento.replace('-', '/')
         descuentos_producto.fecha_fin_descuento = fecha_fin_descuento
 
         await descuentos_producto.save()
@@ -38,6 +40,7 @@ export const UpdateDescuentos_producto = async (req: Request, res: Response) => 
         const { fecha_fin_descuento } = req.body
         const descuentos_producto = await Descuentos_producto.findOneBy({ id_producto: parseInt(req.params.id_producto) , id_descuento: parseInt(req.params.id_descuento)})
         if (!descuentos_producto) return res.status(404).json({ message: 'user dont exists' })
+        fecha_fin_descuento.replace('-', '/')
         descuentos_producto.fecha_fin_descuento = fecha_fin_descuento;
         
         descuentos_producto.save();
