@@ -51,7 +51,6 @@ export default defineComponent({
     },
     methods: {
         async save() {
-            console.log(this.descuentosProducto);
             await createDiscount(this.descuentosProducto);
         }
     }
