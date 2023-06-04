@@ -23,7 +23,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Productos.prototype, "id_producto", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Tipo_producto_1.Tipo_producto, (id_tipo) => id_tipo.id_tipo),
+    (0, typeorm_1.ManyToOne)(() => Tipo_producto_1.Tipo_producto, (Tipo_producto) => Tipo_producto.id_tipo),
     __metadata("design:type", Number)
 ], Productos.prototype, "id_tipo", void 0);
 __decorate([

@@ -11,7 +11,7 @@ export class Productos extends BaseEntity{
     @PrimaryColumn("int")
     id_producto : number
     
-    @ManyToOne(() => Tipo_producto, (id_tipo) => id_tipo.id_tipo)
+    @ManyToOne(() => Tipo_producto, (Tipo_producto) => Tipo_producto.id_tipo)
     id_tipo: number
 
     @Column("varchar", { length: 100 })
