@@ -1,9 +1,9 @@
 <template>
-    <NavBar/>
+  <NavBar />
 
-    <main class="container py-5">
-      <router-view />
-    </main>
+  <main class="container py-5">
+    <router-view />
+  </main>
 </template>
 
 <script lang="ts">

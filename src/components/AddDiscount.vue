@@ -4,18 +4,18 @@
         <form @submit.prevent="save()">
             <label for="producto">Producto:</label>
             <select id="producto" name="producto" v-model="descuentosProducto.id_producto">
-                <option value="1">producto 1</option>
-                <option value="2">producto 2</option>
-                <option value="3">producto 3</option>
+                <option v-for="producto in productos" :key="producto.id_producto" :value="producto.id_producto">
+                    {{ producto.nombre_producto }}
+                </option>
             </select>
 
             <br><br>
 
             <label for="descuento">Descuento:</label>
             <select id="descuento" name="descuento" v-model="descuentosProducto.id_descuento">
-                <option value="1">descuento 1</option>
-                <option value="2">descuento 2</option>
-                <option value="3">descuento 3</option>
+                <option v-for="descuento in descuentos" :key="descuento.id_descuentos" :value="descuento.id_descuentos">
+                    {{ (descuento.descuento * 100) + "% - " + descuento.descripcion }}
+                </option>
             </select>
 
             <br><br>
@@ -40,19 +40,35 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { DescuentosProducto } from "../interfaces/DescuentosProducto";
-import { createDiscount } from "../services/DiscountService";
+import { createDiscount } from "../services/DiscountProductService";
+import { getProducts } from "../services/ProductService";
+import { Productos } from "@/interfaces/Productos";
+import { Descuentos } from "@/interfaces/Descuentos";
+import { getDiscounts } from "../services/DiscountService";
 
 export default defineComponent({
     name: "AddDiscount",
     data() {
         return {
-            descuentosProducto: {} as DescuentosProducto
+            descuentosProducto: {} as DescuentosProducto,
+            productos: [] as Productos[],
+            descuentos: [] as Descuentos[]
         }
     },
     methods: {
+        async load() {
+            const res = await getProducts();
+            this.productos = res.data;
+            const res2 = await getDiscounts();
+            this.descuentos = res2.data;
+        },
         async save() {
             await createDiscount(this.descuentosProducto);
+            this.$router.push({ name: "discounts" });
         }
+    },
+    mounted() {
+        this.load();
     }
 });
 </script>

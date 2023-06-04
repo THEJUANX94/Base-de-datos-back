@@ -40,7 +40,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { DescuentosProducto } from "../interfaces/DescuentosProducto";
-import { createDiscount } from "../services/DiscountService";
+import { createDiscount } from "../services/DiscountProductService";
 
 export default defineComponent({
     name: "ModifyDiscount",
