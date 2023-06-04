@@ -6,6 +6,6 @@ const router = (0, express_1.Router)();
 router.post("/descuento_producto", Descuentos_producto_controller_1.createDescuento_producto);
 router.get("/descuento_producto", Descuentos_producto_controller_1.getDescuentos_producto);
 router.put("/descuento_producto/", Descuentos_producto_controller_1.UpdateDescuentos_producto);
-router.delete("/descuento_producto/", Descuentos_producto_controller_1.deleteDescuentos_producto);
+router.delete("/descuento_producto/:id_producto/:id_descuento", Descuentos_producto_controller_1.deleteDescuentos_producto);
 router.get("/descuento_producto/:id_producto/:id_descuento", Descuentos_producto_controller_1.getDescuento_producto);
 exports.default = router;
