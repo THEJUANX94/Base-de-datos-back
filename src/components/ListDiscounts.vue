@@ -5,15 +5,21 @@
 </template>
 
 <script lang="ts">
-import { getDiscounts } from "@/services/DiscountService";
+import { getDiscountsProduct } from "@/services/DiscountProductService";
+// import { getProducts } from "@/services/ProductService";
+// import { getDiscounts } from "@/services/DiscountService";
 import { defineComponent } from "vue";
 
 export default defineComponent({
     name: "ListDiscount",
     methods: {
         async loadDiscounts() {
-            const res = await getDiscounts();
+            const res = await getDiscountsProduct();
             console.log(res);
+            // const res2 = await getProducts();
+            // console.log(res2);
+            // const res3 = await getDiscounts();
+            // console.log(res3);
         }
     },
     mounted() {

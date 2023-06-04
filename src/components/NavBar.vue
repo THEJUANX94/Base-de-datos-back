@@ -27,5 +27,3 @@ export default defineComponent({
     name: "NavBar"
 });
 </script>
-
-<style></style>
