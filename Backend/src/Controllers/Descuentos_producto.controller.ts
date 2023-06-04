@@ -55,7 +55,7 @@ export const UpdateDescuentos_producto = async (req: Request, res: Response) => 
 
 export const deleteDescuentos_producto = async (req: Request, res: Response) => {
     try {
-        const { id_producto, id_descuento } = req.body
+        const { id_producto, id_descuento } = req.params
 
         const result = await Descuentos_producto.delete({ id_producto: parseInt(id_producto) , id_descuento: parseInt(id_descuento) })
 
