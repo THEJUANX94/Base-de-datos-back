@@ -52,6 +52,7 @@ export default defineComponent({
     methods: {
         async save() {
             await createDiscount(this.descuentosProducto);
+            this.$router.push({ name: "discounts" });
         }
     }
 });
