@@ -31,7 +31,8 @@
             <br><br>
 
             <div class="button-container">
-                <input type="submit" value="Crear">
+                <input type="submit" value="Crear"
+                    :disabled="!descuentosProducto.id_producto || !descuentosProducto.id_descuento || !descuentosProducto.fecha_inicio_descuento || !descuentosProducto.fecha_fin_descuento">
             </div>
         </form>
     </div>
