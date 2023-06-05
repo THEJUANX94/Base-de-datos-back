@@ -162,16 +162,17 @@ input[type="submit"] {
 }
 
 button {
-  width: 50%;
-  background-color: #da0320;
+  width: 200px;
+  background-color: #c00d25;
   color: #fff;
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
+  border: 1px solid #ccc;
 }
 
 input[type="submit"] {
-  width: 50%;
+  width: 200px;
   background-color: #4caf50;
   color: #fff;
   cursor: pointer;
@@ -191,6 +192,7 @@ br {
 }
 
 .main-container {
+  align-items: center;
   border: solid 1px #ccc;
   width: 600px;
   margin: 10px auto;
