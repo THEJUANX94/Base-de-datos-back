@@ -5,7 +5,7 @@ const router = Router()
 
 router.post("/descuento_producto", createDescuento_producto)
 router.get("/descuento_producto", getDescuentos_producto)
-router.put("/descuento_producto/", UpdateDescuentos_producto)
+router.put("/descuento_producto/:id_producto/:id_descuento", UpdateDescuentos_producto)
 router.delete("/descuento_producto/:id_producto/:id_descuento", deleteDescuentos_producto)
 router.get("/descuento_producto/:id_producto/:id_descuento", getDescuento_producto)
 
