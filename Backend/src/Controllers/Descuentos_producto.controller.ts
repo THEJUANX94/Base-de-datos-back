@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Descuentos_producto } from '../entities/Descuentos_producto';
+import { AppDataSource } from '../db';
 
 export const createDescuento_producto = async (req: Request, res: Response) => {
     try {
@@ -37,18 +38,17 @@ export const getDescuentos_producto = async (req: Request, res: Response) => {
 
 export const UpdateDescuentos_producto = async (req: Request, res: Response) => {
     try {
-        const { id_producto, id_descuento } = req.params
         const { fecha_inicio_descuento, fecha_fin_descuento } = req.body
-        const descuentos_producto = await Descuentos_producto.findOneBy({ id_producto: parseInt(id_producto) , id_descuento: parseInt(id_descuento)})
+        const descuentos_producto = await Descuentos_producto.findOneBy({ id_producto: parseInt(req.params.id_producto) , id_descuento: parseInt(req.params.id_descuento)})
         if (!descuentos_producto) return res.status(404).json({ message: 'user dont exists' })
         fecha_fin_descuento.replace('-', '/')
         descuentos_producto.fecha_fin_descuento = fecha_fin_descuento;
         descuentos_producto.fecha_inicio_descuento = fecha_inicio_descuento;
-        descuentos_producto.id_descuento = parseInt(id_descuento)
-        descuentos_producto.id_producto = parseInt(id_producto);
         
-        descuentos_producto.save();
-        return res.json('recibido')
+        const result = AppDataSource.createQueryBuilder().update(Descuentos_producto)
+            .set({ fecha_inicio_descuento: fecha_inicio_descuento, fecha_fin_descuento: fecha_fin_descuento })
+            .where("id_producto =:id_producto", { id_producto: req.params.id_producto }).execute()
+        return res.json(result)
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).json({ message: error.message })

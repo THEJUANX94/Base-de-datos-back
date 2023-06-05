@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDescuento_producto = exports.deleteDescuentos_producto = exports.UpdateDescuentos_producto = exports.getDescuentos_producto = exports.createDescuento_producto = void 0;
 const Descuentos_producto_1 = require("../entities/Descuentos_producto");
+const db_1 = require("../db");
 const createDescuento_producto = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id_producto, id_descuento, fecha_inicio_descuento, fecha_fin_descuento } = req.body;
@@ -53,8 +54,10 @@ const UpdateDescuentos_producto = (req, res) => __awaiter(void 0, void 0, void 0
         fecha_fin_descuento.replace('-', '/');
         descuentos_producto.fecha_fin_descuento = fecha_fin_descuento;
         descuentos_producto.fecha_inicio_descuento = fecha_inicio_descuento;
-        descuentos_producto.save();
-        return res.json('recibido');
+        const result = db_1.AppDataSource.createQueryBuilder().update(Descuentos_producto_1.Descuentos_producto)
+            .set({ fecha_inicio_descuento: fecha_inicio_descuento, fecha_fin_descuento: fecha_fin_descuento })
+            .where("id_producto =:id_producto", { id_producto: req.params.id_producto }).execute();
+        return res.json(result);
     }
     catch (error) {
         if (error instanceof Error) {
