@@ -62,7 +62,7 @@
         <input type="submit" value="Modificar" />
       </div>
     </form>
-    <br /><br />
+    
     <div class="button-container">
       <button @click="deleteD()">Eliminar</button>
     </div>
