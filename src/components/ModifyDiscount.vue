@@ -1,117 +1,177 @@
 <template>
-    <div class="main-container">
-        <h1>Modificar descuento</h1>
-        <form @submit.prevent="save()">
-            <label for="producto">Producto:</label>
-            <select id="producto" name="producto" v-model="descuentosProducto.id_producto">
-                <option value="1">producto 1</option>
-                <option value="2">producto 2</option>
-                <option value="3">producto 3</option>
-            </select>
+  <div class="main-container">
+    <h1>Modificar descuento</h1>
+    <form @submit.prevent="updateD()">
+      <label for="producto">Producto:</label>
+      <input type="text" readonly v-model="currentDiscount.id_producto" />
 
-            <br><br>
+      <br /><br />
 
-            <label for="descuento">Descuento:</label>
-            <select id="descuento" name="descuento" v-model="descuentosProducto.id_descuento">
-                <option value="1">descuento 1</option>
-                <option value="2">descuento 2</option>
-                <option value="3">descuento 3</option>
-            </select>
+      <label for="descuento">Descuento:</label>
+      <input type="text" readonly v-model="currentDiscount.id_descuento" />
 
-            <br><br>
+      <br /><br />
 
-            <label for="fechaInicial">Fecha inicial:</label>
-            <input type="date" id="fechaInicial" name="fechaInicial" v-model="descuentosProducto.fecha_inicio_descuento">
+      <label for="fechaInicial">Fecha inicial:</label>
+      <input
+        type="date"
+        id="fechaInicial"
+        name="fechaInicial"
+        v-model="currentDiscount.fecha_inicio_descuento"
+      />
 
-            <br><br>
+      <br /><br />
 
-            <label for="fechaFinal">Fecha final:</label>
-            <input type="date" id="fechaFinal" name="fechaFinal" v-model="descuentosProducto.fecha_fin_descuento">
+      <label for="fechaFinal">Fecha final:</label>
+      <input
+        type="date"
+        id="fechaFinal"
+        name="fechaFinal"
+        v-model="currentDiscount.fecha_fin_descuento"
+      />
 
-            <br><br>
+      <br /><br />
 
-            <div class="button-container">
-                <input type="submit" value="Modificar">
-            </div>
-        </form>
-    </div>
+      <div class="button-container">
+        <input type="submit" value="Modificar" />
+      </div>
+
+      <br /><br />
+
+      <div class="button-container">
+        <button @click="deleteD()">Eliminar</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { DescuentosProducto } from "../interfaces/DescuentosProducto";
-import { createDiscount } from "../services/DiscountProductService";
+import { DescuentosProducto } from "@/interfaces/DescuentosProducto";
+import {
+  deleteDiscount,
+  getDiscountProduct,
+  updateDiscount,
+} from "@/services/DiscountProductService";
+import { defineComponent } from "@vue/runtime-core";
 
 export default defineComponent({
-    name: "ModifyDiscount",
-    data() {
-        return {
-            descuentosProducto: {} as DescuentosProducto
-        }
+  data() {
+    return {
+      currentDiscount: {} as DescuentosProducto,
+    };
+  },
+  methods: {
+    async loadDiscount(id_producto: number, id_descuento: number) {
+      const res = await getDiscountProduct(id_producto, id_descuento);
+      this.currentDiscount = res.data;
+      console.log(this.currentDiscount)
+
     },
-    methods: {
-        async save() {
-            await createDiscount(this.descuentosProducto);
-        }
+
+    async updateD() {
+      if (
+        typeof this.$route.params.id_producto === "string" &&
+        typeof this.$route.params.id_descuento === "string"
+      ) {
+        await updateDiscount(
+          parseInt(this.$route.params.id_producto),
+          parseInt(this.$route.params.id_descuento),
+          this.currentDiscount
+        );
+        this.$router.push("/");
+      }
+    },
+
+    async deleteD() {
+      if (
+        typeof this.$route.params.id_producto === "string" &&
+        typeof this.$route.params.id_descuento === "string"
+      ) {
+        await deleteDiscount(
+          parseInt(this.$route.params.id_producto),
+          parseInt(this.$route.params.id_descuento)
+        );
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
+    if (
+      typeof this.$route.params.id_producto === "string" &&
+      typeof this.$route.params.id_descuento === "string"
+    ) {
+      this.loadDiscount(
+        parseInt(this.$route.params.id_producto),
+        parseInt(this.$route.params.id_descuento)
+      );
     }
+  },
 });
 </script>
 
 <style scoped>
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-    color: #333;
-    text-align: center;
+  color: #333;
+  text-align: center;
 }
 
 form {
-    max-width: 400px;
-    margin: 20px auto;
+  max-width: 400px;
+  margin: 20px auto;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
 select,
 input[type="date"],
 input[type="submit"] {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 50%;
+  background-color: #691520;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 input[type="submit"] {
-    width: 50%;
-    background-color: #4CAF50;
-    color: #fff;
-    cursor: pointer;
+  width: 50%;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
 }
 
-
 input[type="submit"]:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 br {
-    line-height: 0;
+  line-height: 0;
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .main-container {
-    border: solid 1px #ccc;
-    width: 600px;
-    margin: 10px auto;
-    padding: 20px;
+  border: solid 1px #ccc;
+  width: 600px;
+  margin: 10px auto;
+  padding: 20px;
 }
 </style>
