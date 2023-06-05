@@ -44,6 +44,8 @@ export const UpdateDescuentos_producto = async (req: Request, res: Response) => 
         fecha_fin_descuento.replace('-', '/')
         descuentos_producto.fecha_fin_descuento = fecha_fin_descuento;
         descuentos_producto.fecha_inicio_descuento = fecha_inicio_descuento;
+        descuentos_producto.id_descuento = parseInt(id_descuento)
+        descuentos_producto.id_producto = parseInt(id_producto);
         
         descuentos_producto.save();
         return res.json('recibido')
