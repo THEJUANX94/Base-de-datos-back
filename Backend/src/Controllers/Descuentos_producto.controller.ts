@@ -47,7 +47,9 @@ export const UpdateDescuentos_producto = async (req: Request, res: Response) => 
         
         const result = AppDataSource.createQueryBuilder().update(Descuentos_producto)
             .set({ fecha_inicio_descuento: fecha_inicio_descuento, fecha_fin_descuento: fecha_fin_descuento })
-            .where("id_producto =:id_producto", { id_producto: req.params.id_producto }).execute()
+            .where("id_producto =:id_producto", { id_producto: req.params.id_producto })
+            .where("id_descuento =:id_descuento", { id_descuento: req.params.id_descuento })
+            .execute()
         return res.json(result)
     } catch (error) {
         if (error instanceof Error) {

@@ -56,7 +56,9 @@ const UpdateDescuentos_producto = (req, res) => __awaiter(void 0, void 0, void 0
         descuentos_producto.fecha_inicio_descuento = fecha_inicio_descuento;
         const result = db_1.AppDataSource.createQueryBuilder().update(Descuentos_producto_1.Descuentos_producto)
             .set({ fecha_inicio_descuento: fecha_inicio_descuento, fecha_fin_descuento: fecha_fin_descuento })
-            .where("id_producto =:id_producto", { id_producto: req.params.id_producto }).execute();
+            .where("id_producto =:id_producto", { id_producto: req.params.id_producto })
+            .where("id_descuento =:id_descuento", { id_descuento: req.params.id_descuento })
+            .execute();
         return res.json(result);
     }
     catch (error) {
